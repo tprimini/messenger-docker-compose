@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: messenger
+      MYSQL_DATABASE: messenger
+      MYSQL_USER: messenger
+      MYSQL_PASSWORD: messenger
+    ports:
+      - "3306:3306"    
+       
+  mongodb:
+    image: "mongo:3.2"
+    restart: always
+    user: "mongodb"
+    logging:
+      driver: json-file
+      options:
+        max-size: 100m  
+    volumes:
+      - db_data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+    db_data:
